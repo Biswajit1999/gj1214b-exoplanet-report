@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GJ 1214 b — A Hazy Mini-Neptune, Measured Day and Night by JWST</title>
+<meta name="description" content="Report on GJ 1214 b: real system parameters and a real JWST MIRI phase-curve spectrum showing modest day-night heat transport in this hazy mini-Neptune's atmosphere.">
+<style>
+:root {
+  --bg:#f5f5f2; --panel:#ffffff; --line:#dedbd0; --text:#191913; --muted:#68655a;
+  --accent:#5a6b3c; --accent-soft:#e9ede0; --sans:"Inter","Segoe UI",system-ui,Arial,sans-serif;
+  --mono:"IBM Plex Mono","Roboto Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#15160f; --panel:#1c1d15; --line:#2d2f22; --text:#eaeade; --muted:#a2a08e; --accent:#a9c47a; --accent-soft:#232a17; }
+}
+* { box-sizing: border-box; }
+html,body { margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+header.hero { border-bottom: 1px solid var(--line); padding-bottom: 2rem; margin-bottom: 2.5rem; }
+.kicker { color: var(--accent); font: 600 .75rem var(--mono); letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .8rem; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 .6rem; letter-spacing: -.02em; }
+.tagline { color: var(--muted); font-size: 1.1rem; max-width: 680px; margin: 0; }
+.badges { display:flex; gap:.5rem; margin-top: 1.2rem; flex-wrap: wrap; }
+.badge { font: 600 .68rem var(--mono); background: var(--accent-soft); color: var(--accent); padding: .3rem .6rem; border-radius: 5px; }
+section { margin: 2.6rem 0; }
+h2 { font-size: 1.4rem; margin: 0 0 1rem; letter-spacing: -.01em; }
+p { line-height: 1.7; }
+.muted { color: var(--muted); }
+table.params { width: 100%; border-collapse: collapse; font-size: .92rem; }
+table.params th, table.params td { text-align: left; padding: .6rem .7rem; border-bottom: 1px solid var(--line); }
+table.params th { color: var(--muted); font-weight: 600; width: 45%; }
+.figure { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; margin: 1.2rem 0; }
+.figure img { width: 100%; height: auto; border-radius: 6px; }
+.figure figcaption { color: var(--muted); font-size: .85rem; margin-top: .6rem; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: .8rem; margin: 1.2rem 0; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: .9rem 1rem; }
+.stat span { display:block; color: var(--muted); font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .3rem; }
+.stat strong { font: 600 1.1rem var(--mono); color: var(--accent); }
+ol.refs { padding-left: 1.2rem; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+ol.refs li { margin-bottom: .5rem; }
+a { color: var(--accent); }
+footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; color: var(--muted); font-size: .85rem; }
+footer nav { display: flex; gap: 1.2rem; }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+.callout { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 1rem 1.2rem; border-radius: 6px; font-size: .93rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">Exoplanet Atmosphere Report · JWST MIRI Phase Curve</p>
+    <h1>GJ 1214 b</h1>
+    <p class="tagline">The archetypal "flat spectrum" mini-Neptune — its transmission spectrum has stayed stubbornly featureless through more than a decade of HST and Spitzer observations, hidden behind thick clouds or haze. A full-orbit JWST MIRI phase curve took a different approach: measuring its thermal emission, day and night, instead of trying to see through the haze in transit.</p>
+    <div class="badges">
+      <span class="badge">Transit-discovered, 2009</span>
+      <span class="badge">Real NASA Exoplanet Archive parameters</span>
+      <span class="badge">Real JWST MIRI phase-curve spectrum, 14 wavelength bins</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>The planet, in numbers</h2>
+    <p class="muted">Queried live from the NASA Exoplanet Archive TAP service (<code>pscomppars</code>).</p>
+    <table class="params">
+      <tr><th>Radius</th><td>2.73 Earth radii</td></tr>
+      <tr><th>Mass</th><td>8.41 Earth masses</td></tr>
+      <tr><th>Orbital period</th><td>1.58 days</td></tr>
+      <tr><th>Semi-major axis</th><td>0.0151 AU</td></tr>
+      <tr><th>Equilibrium temperature</th><td>567 K</td></tr>
+      <tr><th>Host star</th><td>GJ 1214, M-dwarf, T<sub>eff</sub> = 3101 K, 0.216 R<sub>sun</sub>, 0.182 M<sub>sun</sub></td></tr>
+      <tr><th>Distance</th><td>14.6 parsecs (~47.8 light-years)</td></tr>
+      <tr><th>Discovery</th><td>2009, transit photometry (MEarth survey)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Why a flat spectrum needed a different strategy</h2>
+    <p>GJ 1214 b's mass and radius place it squarely in the "mini-Neptune" or "sub-Neptune" regime, with no solar-system analog. Every transmission spectrum obtained for it since its 2009 discovery — HST, Spitzer, and more — has come back essentially featureless: a strong sign of high-altitude clouds or photochemical haze blocking the molecular absorption features a transmission spectrum would otherwise reveal, rather than evidence the planet lacks an atmosphere at all.</p>
+    <p>Kempton et al. (2023) took a different observational approach with JWST: a full-orbit MIRI photometric phase curve, tracking the planet's own thermal glow continuously as it orbits, rather than only during transit. This measures the planet's actual temperature structure directly, sidestepping the cloud/haze opacity problem that has defeated transmission spectroscopy.</p>
+  </section>
+
+  <section>
+    <h2>Real day-night temperatures, from the actual phase-curve fit</h2>
+    <p>The figure below inverts the real per-wavelength dayside and nightside flux ratios from the published phase-curve fit into brightness temperatures, using the Planck function and each bin's own fitted Rp/Rs.</p>
+    <div class="figure">
+      <img src="figures/gj1214b_day_night_temperature.png" alt="GJ 1214 b real dayside and nightside brightness temperature spectrum from JWST MIRI phase curve">
+      <figcaption>14 real wavelength bins, 5.1-12.0 microns. Generated by <code>scripts/analyze_spectrum.py</code>.</figcaption>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><span>Wavelength bins</span><strong>14</strong></div>
+      <div class="stat"><span>Mean dayside T</span><strong>583 K</strong></div>
+      <div class="stat"><span>Mean nightside T</span><strong>449 K</strong></div>
+      <div class="stat"><span>Mean day-night contrast</span><strong>135 K</strong></div>
+    </div>
+    <p class="callout">A real, modest day-night contrast of ~135 K — far smaller than an ultra-hot Jupiter like WASP-121 b's measured ~1560 K contrast (see that report in this series), and consistent with real, if imperfect, heat redistribution by a genuine, likely high-mean-molecular-weight atmosphere. This is direct evidence that GJ 1214 b's featureless transmission spectrum reflects clouds/haze hiding a real atmosphere, not the absence of one.</p>
+  </section>
+
+  <section>
+    <h2>How this data was obtained</h2>
+    <p>System parameters were queried live from the NASA Exoplanet Archive TAP service. The phase-curve results are real published best-fit values from Kempton et al. (2023), released publicly on Zenodo (record <a href="https://doi.org/10.5281/zenodo.7703086">10.5281/zenodo.7703086</a>). See <a href="data/">data/</a> for the exact file as downloaded and <a href="scripts/analyze_spectrum.py">scripts/analyze_spectrum.py</a> for the brightness-temperature inversion — run it yourself with <code>python scripts/analyze_spectrum.py</code>.</p>
+  </section>
+
+  <section>
+    <h2>References</h2>
+    <ol class="refs">
+      <li>Charbonneau, D. et al., 2009. A super-Earth transiting a nearby low-mass star. <em>Nature</em>, 462, pp.891-894 (discovery).</li>
+      <li>Kempton, E.M.-R. et al., 2023. A reflective, metal-rich atmosphere for GJ 1214b from its JWST phase curve. <em>Nature</em>, 620, pp.67-71.</li>
+      <li>Zenodo record <a href="https://doi.org/10.5281/zenodo.7703086">10.5281/zenodo.7703086</a>, "GJ 1214b MIRI phase curve analysis."</li>
+      <li>Kreidberg, L. et al., 2014. Clouds in the atmosphere of the super-Earth exoplanet GJ1214b. <em>Nature</em>, 505, pp.69-72 (the earlier flat HST spectrum).</li>
+      <li>NASA Exoplanet Archive, <a href="https://exoplanetarchive.ipac.caltech.edu/">exoplanetarchive.ipac.caltech.edu</a>.</li>
+    </ol>
+  </section>
+
+  <footer>
+    <span>Biswajit Jana · Exoplanet Atmosphere Report Series</span>
+    <nav>
+      <a href="https://biswajit1999.github.io/Biswajit_Jana.github.io/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="https://github.com/Biswajit1999" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/biswajit-jana-27011a151/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://orcid.org/0009-0002-2411-1891" target="_blank" rel="noopener">ORCID</a>
+    </nav>
+  </footer>
+</div>
+</body>
+</html>

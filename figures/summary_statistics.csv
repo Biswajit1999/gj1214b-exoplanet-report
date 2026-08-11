@@ -1,0 +1,7 @@
+quantity,value,unit
+n_wavelength_bins,14,count
+mean_dayside_brightness_temp,583.4,K
+mean_nightside_brightness_temp,448.7,K
+mean_day_night_contrast,134.7,K
+min_day_night_contrast,54.1,K
+max_day_night_contrast,245.4,K
