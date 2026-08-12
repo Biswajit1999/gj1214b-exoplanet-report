@@ -1,7 +1,9 @@
 quantity,value,unit
-n_wavelength_bins,14,count
-mean_dayside_brightness_temp,583.4,K
-mean_nightside_brightness_temp,448.7,K
-mean_day_night_contrast,134.7,K
-min_day_night_contrast,54.1,K
-max_day_night_contrast,245.4,K
+n_wavelength_bins_used,14,count
+n_bins_skipped_nonpositive_flux,0,count
+weighted_mean_dayside_brightness_temp_this_script,574.8 +/- 4.9,K
+weighted_mean_nightside_brightness_temp_this_script,505.2 +/- 9.4,K
+paper_dayside_temp,553 +/- 9,"K (Kempton et al. 2023, full-spectrum fit)"
+paper_nightside_temp,437 +/- 19,"K (Kempton et al. 2023, full-spectrum fit)"
+paper_bond_albedo,0.51 +/- 0.06,-
+mean_day_night_contrast_this_script,134.7,K
