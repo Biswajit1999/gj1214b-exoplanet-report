@@ -1,8 +1,9 @@
 quantity,value,unit
 n_wavelength_bins_used,14,count
 n_bins_skipped_nonpositive_flux,0,count
+n_nightside_bins_lower_bound_unconstrained,4,"count (flux consistent with zero at 1-sigma; lower T bound reported as 0 K, not clipped)"
 weighted_mean_dayside_brightness_temp_this_script,574.8 +/- 4.9,K
-weighted_mean_nightside_brightness_temp_this_script,505.2 +/- 9.4,K
+weighted_mean_nightside_brightness_temp_this_script,506.2 +/- 9.4,K
 paper_dayside_temp,553 +/- 9,"K (Kempton et al. 2023, full-spectrum fit)"
 paper_nightside_temp,437 +/- 19,"K (Kempton et al. 2023, full-spectrum fit)"
 paper_bond_albedo,0.51 +/- 0.06,-

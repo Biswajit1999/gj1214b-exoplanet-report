@@ -17,11 +17,17 @@ average of point estimates. The result is reported next to Kempton et al.
 nightside), which come from fitting the full spectrum jointly rather than
 combining independent per-bin inversions.
 
-No flux value is clipped to a small positive number before inversion: if
-a fitted flux were ever non-positive (it isn't, for any bin in this
-dataset -- see data/SOURCE.md), that bin is excluded rather than silently
-converted into a fake temperature, since a non-positive flux measurement
-is a non-detection, not a small positive one.
+A bin's central flux value is never clipped: if it were non-positive
+(it isn't, for any bin in this dataset -- see data/SOURCE.md), that bin
+would be excluded rather than silently converted into a fake
+temperature. Four of the fourteen nightside bins do have a lower flux
+bound (flux minus its lower error) that crosses zero -- a real,
+low-signal-to-noise result, not a data error. For those bins this
+script does NOT substitute a small positive flux to manufacture a
+finite lower-temperature bound; the lower bound is instead reported as
+unconstrained (0 K, the physical floor as flux -> 0), and the affected
+bins are flagged explicitly in the output rather than hidden inside an
+artificially tight error bar.
 """
 
 from __future__ import annotations
@@ -84,8 +90,18 @@ def bin_temperature_with_error(flux: float, flux_lo_err: float, flux_hi_err: flo
         return None
     t_best = brightness_temperature(flux, rp_rs, wavelength_um)
     t_hi = brightness_temperature(flux + flux_hi_err, rp_rs, wavelength_um)
-    t_lo = brightness_temperature(max(flux - flux_lo_err, 1e-12), rp_rs, wavelength_um)
-    return t_best, (t_hi - t_lo) / 2
+
+    # If the lower flux bound is non-positive, the lower brightness-
+    # temperature bound is genuinely unconstrained (flux is consistent
+    # with zero at this confidence level), not a small positive number.
+    # T -> 0 K as flux -> 0, so 0 K is the physical lower asymptote --
+    # report that directly rather than inventing a finite bound from an
+    # arbitrary epsilon flux.
+    lower_flux = flux - flux_lo_err
+    lower_unconstrained = lower_flux <= 0
+    t_lo = 0.0 if lower_unconstrained else brightness_temperature(lower_flux, rp_rs, wavelength_um)
+
+    return t_best, (t_hi - t_lo) / 2, lower_unconstrained
 
 
 def weighted_mean(values: np.ndarray, errors: np.ndarray) -> tuple[float, float]:
@@ -100,6 +116,7 @@ def main() -> None:
     rows = load_results(DATA_DIR / "miri_phasecurve_spectral_results.txt")
 
     wavelengths, day_t, day_t_err, night_t, night_t_err = [], [], [], [], []
+    night_unconstrained = []
     skipped = 0
     for row in rows:
         wavelength = 0.5 * (row["min_wavelength"] + row["max_wavelength"])
@@ -116,11 +133,14 @@ def main() -> None:
         day_t_err.append(day[1])
         night_t.append(night[0])
         night_t_err.append(night[1])
+        night_unconstrained.append(night[2])
 
     wavelengths = np.array(wavelengths)
     day_t, day_t_err = np.array(day_t), np.array(day_t_err)
     night_t, night_t_err = np.array(night_t), np.array(night_t_err)
+    night_unconstrained = np.array(night_unconstrained)
     contrast = day_t - night_t
+    n_unconstrained = int(night_unconstrained.sum())
 
     day_mean, day_mean_err = weighted_mean(day_t, day_t_err)
     night_mean, night_mean_err = weighted_mean(night_t, night_t_err)
@@ -131,6 +151,7 @@ def main() -> None:
         writer.writerow(["quantity", "value", "unit"])
         writer.writerow(["n_wavelength_bins_used", len(wavelengths), "count"])
         writer.writerow(["n_bins_skipped_nonpositive_flux", skipped, "count"])
+        writer.writerow(["n_nightside_bins_lower_bound_unconstrained", n_unconstrained, "count (flux consistent with zero at 1-sigma; lower T bound reported as 0 K, not clipped)"])
         writer.writerow(["weighted_mean_dayside_brightness_temp_this_script", f"{day_mean:.1f} +/- {day_mean_err:.1f}", "K"])
         writer.writerow(["weighted_mean_nightside_brightness_temp_this_script", f"{night_mean:.1f} +/- {night_mean_err:.1f}", "K"])
         writer.writerow(["paper_dayside_temp", f"{PAPER_DAY_T_K[0]} +/- {PAPER_DAY_T_K[1]}", "K (Kempton et al. 2023, full-spectrum fit)"])
@@ -140,7 +161,15 @@ def main() -> None:
 
     fig, ax = plt.subplots(figsize=(9, 5.5))
     ax.errorbar(wavelengths, day_t, yerr=day_t_err, fmt="o-", color="#c0562a", ms=6, capsize=3, label="dayside (this script, per bin)")
-    ax.errorbar(wavelengths, night_t, yerr=night_t_err, fmt="o-", color="#2c5f8a", ms=6, capsize=3, label="nightside (this script, per bin)")
+    constrained = ~night_unconstrained
+    ax.errorbar(wavelengths[constrained], night_t[constrained], yerr=night_t_err[constrained], fmt="o-", color="#2c5f8a", ms=6, capsize=3, label="nightside (this script, per bin)")
+    if night_unconstrained.any():
+        ax.errorbar(
+            wavelengths[night_unconstrained], night_t[night_unconstrained],
+            yerr=[np.minimum(night_t_err[night_unconstrained], night_t[night_unconstrained]), night_t_err[night_unconstrained]],
+            fmt="x", color="#2c5f8a", ms=8, mew=2, capsize=3, alpha=0.6,
+            label="nightside, lower bound unconstrained (flux ~ 0 at 1σ)",
+        )
     ax.axhline(PAPER_DAY_T_K[0], color="#c0562a", ls="--", lw=1, alpha=0.7, label="paper dayside mean")
     ax.axhline(PAPER_NIGHT_T_K[0], color="#2c5f8a", ls="--", lw=1, alpha=0.7, label="paper nightside mean")
     ax.set_xlabel("Wavelength [micron]")
@@ -154,6 +183,7 @@ def main() -> None:
     print(f"Wrote {summary_path}")
     print(f"Wrote {FIG_DIR / 'gj1214b_day_night_temperature.png'}")
     print(f"n={len(wavelengths)} bins used, {skipped} skipped")
+    print(f"{n_unconstrained} of {len(wavelengths)} nightside bins have an unconstrained lower temperature bound (flux consistent with zero at 1-sigma)")
     print(f"Weighted mean dayside T (this script) = {day_mean:.1f} +/- {day_mean_err:.1f} K")
     print(f"Weighted mean nightside T (this script) = {night_mean:.1f} +/- {night_mean_err:.1f} K")
     print(f"Paper's own dayside/nightside mean: {PAPER_DAY_T_K[0]} +/- {PAPER_DAY_T_K[1]} K / {PAPER_NIGHT_T_K[0]} +/- {PAPER_NIGHT_T_K[1]} K")

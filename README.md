@@ -41,24 +41,30 @@ figures/                 generated plot + summary_statistics.csv
 ## What the numbers show
 
 14 wavelength bins, 5.1-12.0 microns. This page's weighted-mean brightness
-temperature is 575 ± 5 K dayside and 505 ± 9 K nightside — in the same
+temperature is 575 ± 5 K dayside and 506 ± 9 K nightside — in the same
 range as Kempton et al.'s own 553 ± 9 K and 437 ± 19 K, which come from
 fitting the full spectrum jointly rather than combining independent
 per-bin inversions, so the two shouldn't be read as the same estimator.
 Both show a day-night contrast well below an ultra-hot Jupiter like
-WASP-121 b's ~1560 K (see that report in this series), consistent with a
-real atmosphere redistributing heat imperfectly rather than a bare rock.
-Kempton et al. also derive a Bond albedo of 0.51 ± 0.06 from their full
-fit — something this repo's simpler per-bin approach doesn't attempt.
+WASP-121 b's ~1560 K (see that report in this series), broadly consistent
+with a real atmosphere redistributing heat imperfectly rather than a bare
+rock. Kempton et al. also derive a Bond albedo of 0.51 ± 0.06 from their
+full fit — something this repo's simpler per-bin approach doesn't attempt.
 
 ## Limitations
 
-Earlier versions of this analysis clipped any non-positive fitted flux
-to a small positive number before Planck inversion, which would have
-silently turned a statistical non-detection into a fake finite
-temperature. No bin in this dataset actually has non-positive flux, but
-the script now checks explicitly and excludes any bin that would
-require it, rather than relying on that being true by chance.
+Four of the fourteen nightside bins have a fitted flux whose lower
+uncertainty bound crosses zero — a real low-signal-to-noise result, not
+a data error. For those bins, the lower brightness-temperature bound is
+reported as unconstrained (0 K, the physical floor as flux approaches
+zero) rather than computed from an arbitrarily small positive flux,
+which would have manufactured a falsely precise finite number out of
+what is really a non-detection at that confidence level. Those four
+bins are marked separately in the figure and get correspondingly little
+weight in the combined mean, rather than being folded in silently.
+This is a diagonal, per-bin inversion — it does not reproduce the joint
+posterior Kempton et al. fit across the whole spectrum, nor their Bond
+albedo derivation.
 
 ## References
 
