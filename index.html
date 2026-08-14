@@ -45,6 +45,9 @@ footer nav { display: flex; gap: 1.2rem; }
 footer a { color: var(--muted); text-decoration: none; }
 footer a:hover { color: var(--accent); }
 .callout { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 1rem 1.2rem; border-radius: 6px; font-size: .93rem; }
+.hero-banner { margin: 1.5rem 0 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+.hero-banner img { width: 100%; height: auto; max-height: 440px; object-fit: cover; display: block; }
+.ai-credit { color: var(--muted); font-size: .72rem; font-style: italic; margin: .5rem 0 0; }
 </style>
 </head>
 <body>
@@ -59,6 +62,11 @@ footer a:hover { color: var(--accent); }
       <span class="badge">JWST MIRI phase-curve spectrum, 14 wavelength bins (Kempton et al. 2023)</span>
     </div>
   </header>
+
+  <div class="hero-banner">
+    <img src="images/hero.png" alt="Artist's concept of the hazy sub-Neptune exoplanet GJ 1214 b">
+  </div>
+  <p class="ai-credit">AI-generated artist's concept of GJ 1214 b — not a real photograph. All data and figures in this report come from actual JWST MIRI observations (see below).</p>
 
   <section>
     <h2>The planet, in numbers</h2>
@@ -79,6 +87,10 @@ footer a:hover { color: var(--accent); }
     <h2>Why a flat spectrum needed a different strategy</h2>
     <p>GJ 1214 b's mass and radius place it squarely in the "mini-Neptune" or "sub-Neptune" regime, with no solar-system analog. Every transmission spectrum obtained for it since its 2009 discovery — HST, Spitzer, and more — has come back essentially featureless: a strong sign of high-altitude clouds or photochemical haze blocking the molecular absorption features a transmission spectrum would otherwise reveal, rather than evidence the planet lacks an atmosphere at all.</p>
     <p>Kempton et al. (2023) took a different observational approach with JWST: a full-orbit MIRI photometric phase curve, tracking the planet's own thermal glow continuously as it orbits, rather than only during transit. This measures the planet's actual temperature structure directly, sidestepping the cloud/haze opacity problem that has defeated transmission spectroscopy.</p>
+    <div class="figure">
+      <img src="images/3d-render.png" alt="Close-up 3D-rendered concept of GJ 1214 b's hazy atmosphere">
+      <p class="ai-credit">AI-generated 3D-render-style concept of the planet's haze/cloud layer implied by its featureless spectrum — not an actual image of the planet.</p>
+    </div>
   </section>
 
   <section>
@@ -100,6 +112,10 @@ footer a:hover { color: var(--accent); }
   <section>
     <h2>Data and method notes</h2>
     <p>System parameters come from the NASA Exoplanet Archive TAP service. The phase-curve results are published best-fit values from Kempton et al. (2023), released publicly on Zenodo (record <a href="https://doi.org/10.5281/zenodo.7703086">10.5281/zenodo.7703086</a>). See <a href="data/">data/</a> for the exact file as downloaded and <a href="scripts/analyze_spectrum.py">scripts/analyze_spectrum.py</a> for the brightness-temperature inversion (<code>python scripts/analyze_spectrum.py</code> to rerun it). Every fitted central flux value in this dataset is positive, so no bin is excluded outright — but four nightside bins have a lower flux bound that crosses zero, and their lower temperature bound is reported as unconstrained (0 K) rather than clipped to a small positive flux to manufacture a finite number, since a flux consistent with zero is a genuine non-detection at that confidence level, not a precise small measurement.</p>
+    <div class="figure">
+      <img src="images/instrument.png" alt="AI-generated illustration of the James Webb Space Telescope">
+      <p class="ai-credit">AI-generated illustration of the James Webb Space Telescope, whose MIRI instrument took the real phase-curve data used in this report. Not an official mission photograph — see <a href="https://www.jwst.nasa.gov/">NASA/JWST</a> for real imagery.</p>
+    </div>
   </section>
 
   <section>

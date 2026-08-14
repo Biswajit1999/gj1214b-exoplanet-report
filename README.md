@@ -1,5 +1,9 @@
 # GJ 1214 b — Exoplanet Atmosphere Report
 
+<img src="images/thumbnail.png" alt="Artist's concept of GJ 1214 b" width="360">
+
+*AI-generated artist's concept — not a real photograph. See the report for actual JWST MIRI data.*
+
 The archetypal "flat spectrum" mini-Neptune, hidden behind clouds or haze
 through more than a decade of transmission spectroscopy. This repo uses
 JWST MIRI phase-curve data — measuring thermal emission instead of
