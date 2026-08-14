@@ -36,6 +36,23 @@ index.html              the report webpage
 data/                    MIRI phase-curve spectral fit results (Zenodo)
 scripts/analyze_spectrum.py   Planck-inversion analysis, this script vs. the paper
 figures/                 generated plot + summary_statistics.csv
+tests/                   unit tests + a regression check against the real data
+```
+
+## Tests
+
+`tests/test_analysis.py` checks the Planck-inversion round trip and,
+most importantly, directly guards against reintroducing the
+flux-clipping bug this repo was fixed for: a non-positive lower flux
+bound must be reported as an unconstrained (0 K) temperature bound,
+never clipped to a fake small positive flux. It then reruns the full
+pipeline on the real downloaded phase curve, verifying it still
+reproduces the numbers this README documents — including that exactly
+four real nightside bins remain flagged as unconstrained. Runs
+automatically on every push via GitHub Actions; run locally with:
+
+```bash
+pytest tests/ -v
 ```
 
 ## What the numbers show
