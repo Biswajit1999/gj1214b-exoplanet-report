@@ -1,8 +1,10 @@
 # GJ 1214 b — Exoplanet Atmosphere Report
 
-<img src="images/thumbnail.png" alt="Artist's concept of GJ 1214 b" width="360">
+<p align="center">
+  <img src="images/thumbnail.png" alt="Artist's concept of GJ 1214 b" width="360">
+</p>
 
-*AI-generated artist's concept — not a real photograph. See the report for actual JWST MIRI data.*
+<p align="center"><em>AI-generated artist's concept — not a real photograph. See the report for actual JWST MIRI data.</em></p>
 
 The archetypal "flat spectrum" mini-Neptune, hidden behind clouds or haze
 through more than a decade of transmission spectroscopy. This repo uses
@@ -11,8 +13,7 @@ transmission — to invert per-bin day and night brightness temperatures
 with propagated uncertainty, and compares them to Kempton et al. (2023)'s
 own published values.
 
-**[Open the full report](index.html)** (open locally in a browser, or serve
-with `python -m http.server` from this directory).
+**[Open the full report](https://biswajit1999.github.io/gj1214b-exoplanet-report/)** — the live GitHub Pages version. You can also open `index.html` locally in a browser, or serve it with `python -m http.server` from this directory.
 
 ## Data sources
 
