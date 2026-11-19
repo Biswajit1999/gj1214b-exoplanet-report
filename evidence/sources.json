@@ -1,0 +1,26 @@
+{
+  "project": "GJ 1214 b — Exoplanet Atmosphere Report",
+  "repository": "https://github.com/Biswajit1999/gj1214b-exoplanet-report",
+  "files": [
+    {
+      "label": "Data source notes",
+      "path": "data/SOURCE.md",
+      "role": "Data and provenance"
+    },
+    {
+      "label": "Miri phasecurve spectral results",
+      "path": "data/miri_phasecurve_spectral_results.txt",
+      "role": "Data and provenance"
+    },
+    {
+      "label": "Summary statistics",
+      "path": "figures/summary_statistics.csv",
+      "role": "Tables and numerical results"
+    },
+    {
+      "label": "Gj1214b day night temperature",
+      "path": "figures/gj1214b_day_night_temperature.png",
+      "role": "Figures"
+    }
+  ]
+}

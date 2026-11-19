@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "project": "GJ 1214 b — Exoplanet Atmosphere Report",
+  "repository": "https://github.com/Biswajit1999/gj1214b-exoplanet-report",
+  "files": [
+    {
+      "label": "Data source notes",
+      "path": "data/SOURCE.md",
+      "role": "Data and provenance",
+      "bytes": 749,
+      "sha256": "e4f20e8a0086292c6abab2c5467d33010e12886b1fe4b33766fc2e40fe319e24",
+      "hash_basis": "LF-normalised text",
+      "format": "MD"
+    },
+    {
+      "label": "Miri phasecurve spectral results",
+      "path": "data/miri_phasecurve_spectral_results.txt",
+      "role": "Data and provenance",
+      "bytes": 5189,
+      "sha256": "ae1a9e4e72f91929b4ec907fd0dda3a526d0ff2c95fc9e6ea32d4e6c86fa09b3",
+      "hash_basis": "LF-normalised text",
+      "format": "TXT"
+    },
+    {
+      "label": "Summary statistics",
+      "path": "figures/summary_statistics.csv",
+      "role": "Tables and numerical results",
+      "bytes": 591,
+      "sha256": "92806b185d57d897004a6d27d13b229596ce107ddf70c50d40531dd35c2d8ba1",
+      "hash_basis": "LF-normalised text",
+      "format": "CSV",
+      "rows": 9,
+      "columns": 3,
+      "headers": [
+        "quantity",
+        "value",
+        "unit"
+      ],
+      "preview": [
+        [
+          "n_wavelength_bins_used",
+          "14",
+          "count"
+        ],
+        [
+          "n_bins_skipped_nonpositive_flux",
+          "0",
+          "count"
+        ],
+        [
+          "n_nightside_bins_lower_bound_unconstrained",
+          "4",
+          "count (flux consistent with zero at 1-sigma; lower T bound reported as 0 K, not clipped)"
+        ],
+        [
+          "weighted_mean_dayside_brightness_temp_this_script",
+          "574.8 +/- 4.9",
+          "K"
+        ]
+      ]
+    },
+    {
+      "label": "Gj1214b day night temperature",
+      "path": "figures/gj1214b_day_night_temperature.png",
+      "role": "Figures",
+      "bytes": 133406,
+      "sha256": "3669c28848d6fbf4b2cde7f57359abc1524e4c659da498ef79e31702c76f39d4",
+      "hash_basis": "exact bytes",
+      "format": "PNG"
+    }
+  ]
+}
